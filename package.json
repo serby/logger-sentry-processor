@@ -1,0 +1,44 @@
+{
+  "author": "Paul Serby <paul@serby.net>",
+  "name": "@serby/logger-sentry-processor",
+  "description": "Sentry log processor for @serby/logger",
+  "version": "1.1.0",
+  "tags": [
+    "logging",
+    "logger",
+    "sentry"
+  ],
+  "scope": "@serby",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:serby/logger"
+  },
+  "license": "ISC",
+  "main": "./logger-sentry-processor.js",
+  "files": [
+    "logger-sentry-processor.js"
+  ],
+  "scripts": {
+    "lint:js": "eslint . --cache --ext '.js'",
+    "prettier": "prettier --write '**/*.{js}'",
+    "test": "jest",
+    "test:coverage": "jest --coverage --watch"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-config-prettier-standard": "^3.0.1",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2"
+  }
+}
