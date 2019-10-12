@@ -2,7 +2,7 @@
   "author": "Paul Serby <paul@serby.net>",
   "name": "@serby/logger-sentry-processor",
   "description": "Sentry log processor for @serby/logger",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "tags": [
     "logging",
     "logger",
