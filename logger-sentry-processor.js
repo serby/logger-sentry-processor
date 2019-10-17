@@ -13,6 +13,7 @@ const createSentryProcessor = sentry => {
       }
       sentryScope.setExtra('data', rest)
       if (scope) sentryScope.setExtra('scope', scope)
+      sentryScope.setExtra('pid', pid)
       if (first instanceof Error) {
         sentry.captureException(first)
       } else {
