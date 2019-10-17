@@ -58,18 +58,35 @@ describe('logger-sentry-processor', () => {
     strictEqual(mockSetTag.mock.calls[1][1], 2)
   })
 
-  it('should set the scope extra', () => {
+  it('should send extra data to sentry', () => {
     const mockSetExtra = jest.fn()
     const processor = createSentryProcessor(
       createSentrySpy({
         onSetExtra: mockSetExtra
       })
     )
-    processor({}, 'There was a error', 2, { a: 1 })
-    strictEqual(mockSetExtra.mock.calls.length, 1)
+    processor({ pid: 42 }, 'There was a error', 2, { a: 1 })
+    strictEqual(mockSetExtra.mock.calls.length, 2)
     strictEqual(mockSetExtra.mock.calls[0][0], 'data')
     strictEqual(mockSetExtra.mock.calls[0][1][0], 2)
     deepStrictEqual(mockSetExtra.mock.calls[0][1][1], { a: 1 })
+    strictEqual(mockSetExtra.mock.calls[1][0], 'pid')
+    strictEqual(mockSetExtra.mock.calls[1][1], 42)
+  })
+
+  it('should send logger scope ', () => {
+    const mockSetExtra = jest.fn()
+    const processor = createSentryProcessor(
+      createSentrySpy({
+        onSetExtra: mockSetExtra
+      })
+    )
+    processor({ pid: 42, scope: 'app' }, 'There was a error')
+    strictEqual(mockSetExtra.mock.calls.length, 2)
+    strictEqual(mockSetExtra.mock.calls[0][0], 'scope')
+    strictEqual(mockSetExtra.mock.calls[0][1], 'app')
+    strictEqual(mockSetExtra.mock.calls[1][0], 'pid')
+    strictEqual(mockSetExtra.mock.calls[1][1], 42)
   })
 
   it('should capture the first argument after meta as a message', () => {

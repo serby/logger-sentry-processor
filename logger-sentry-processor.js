@@ -11,7 +11,7 @@ const createSentryProcessor = sentry => {
       if (tags) {
         Object.keys(tags).forEach(tag => sentryScope.setTag(tag, tags[tag]))
       }
-      sentryScope.setExtra('data', rest)
+      if (rest.length > 0) sentryScope.setExtra('data', rest)
       if (scope) sentryScope.setExtra('scope', scope)
       sentryScope.setExtra('pid', pid)
       if (first instanceof Error) {
