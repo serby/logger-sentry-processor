@@ -121,4 +121,22 @@ describe('logger-sentry-processor', () => {
       )
     )
   })
+
+  it('should capture extra data attached to errors', () => {
+    const mockSetExtra = jest.fn()
+    const processor = createSentryProcessor(
+      createSentrySpy({
+        onSetExtra: mockSetExtra
+      })
+    )
+    const error = new Error('This is an error')
+    error.foo = 'bar'
+    error.errors = { name: 'Not good' }
+    processor({}, error, 2, { a: 1 })
+    strictEqual(mockSetExtra.mock.calls.length, 4)
+    strictEqual(mockSetExtra.mock.calls[2][0], '.foo')
+    strictEqual(mockSetExtra.mock.calls[2][1], 'bar')
+    strictEqual(mockSetExtra.mock.calls[3][0], '.errors')
+    deepStrictEqual(mockSetExtra.mock.calls[3][1], { name: 'Not good' })
+  })
 })
